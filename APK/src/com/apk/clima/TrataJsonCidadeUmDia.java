@@ -100,12 +100,10 @@ public class TrataJsonCidadeUmDia {
 		JSONParser parser = new JSONParser();
 		WeatherDoDia clima = new WeatherDoDia();
 		
-		String recebeCidade = null;
-
 		try {
 			
-			JSONArray json = (JSONArray) parser.parse(recebeCidade);
-
+			JSONArray json = (JSONArray) recebeJsonCidadeDia;
+			
 			for (Object jsons : json) {
 				
 				Double converteTemp;
