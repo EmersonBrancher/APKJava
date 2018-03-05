@@ -1,6 +1,7 @@
 package com.apk.clima;
 
 import java.io.FileReader;
+import java.text.DecimalFormat;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -99,30 +100,22 @@ public class TrataJsonCidadeUmDia {
 
 		JSONParser parser = new JSONParser();
 		WeatherDoDia clima = new WeatherDoDia();
-		
+
 		try {
-			
-			JSONArray json = (JSONArray) recebeJsonCidadeDia;
-			
-			for (Object jsons : json) {
-				
-				Double converteTemp;
 
-				JSONObject weather = (JSONObject) jsons;
+			JSONObject json = (JSONObject) parser.parse(recebeJsonCidadeDia);
 
-				clima.setMainObject(weather.get("main").toString());
+			JSONObject main = (JSONObject) json.get("main");
 
-				JSONObject mainObject = (JSONObject) weather.get("main");
+			Double converteTemp;
 
-				clima.setTemp(mainObject.get("temp").toString());
-				
-				converteTemp = Double.parseDouble(clima.getTemp());
-				
-				converteTemp -= 273.15;
-								
-				clima.setTemp(converteTemp.toString());
+			clima.setTemp(main.get("temp").toString());
 
-			}
+			converteTemp = Double.parseDouble(clima.getTemp());
+
+			converteTemp -= 273.15;
+
+			clima.setTemp(converteTemp.toString());
 
 		} catch (Exception e) {
 
@@ -131,7 +124,7 @@ public class TrataJsonCidadeUmDia {
 		return clima.getTemp();
 
 	}
-	
+
 	public static String passaTempMin(String recebeJsonCidadeDia) {
 
 		JSONParser parser = new JSONParser();
@@ -139,27 +132,19 @@ public class TrataJsonCidadeUmDia {
 
 		try {
 
-			JSONArray json = (JSONArray) parser.parse(recebeJsonCidadeDia);
+			JSONObject json = (JSONObject) parser.parse(recebeJsonCidadeDia);
 
-			for (Object jsons : json) {
-				
-				Double converteTemp;
+			JSONObject main = (JSONObject) json.get("main");
 
-				JSONObject weather = (JSONObject) jsons;
+			Double converteTemp;
 
-				clima.setMainObject(weather.get("main").toString());
+			clima.setTempMin(main.get("temp_min").toString());
 
-				JSONObject mainObject = (JSONObject) weather.get("main");
+			converteTemp = Double.parseDouble(clima.getTempMin());
 
-				clima.setTempMin(mainObject.get("temp_min").toString());
-				
-				converteTemp = Double.parseDouble(clima.getTempMin());
-				
-				converteTemp -= 273.15;
-				
-				clima.setTempMin(converteTemp.toString());
+			converteTemp -= 273.15;
 
-			}
+			clima.setTempMin(converteTemp.toString());
 
 		} catch (Exception e) {
 
@@ -168,7 +153,7 @@ public class TrataJsonCidadeUmDia {
 		return clima.getTempMin();
 
 	}
-	
+
 	public static String passaTempMax(String recebeJsonCidadeDia) {
 
 		JSONParser parser = new JSONParser();
@@ -176,27 +161,21 @@ public class TrataJsonCidadeUmDia {
 
 		try {
 
-			JSONArray json = (JSONArray) parser.parse(recebeJsonCidadeDia);
+			JSONObject json = (JSONObject) parser.parse(recebeJsonCidadeDia);
 
-			for (Object jsons : json) {
-				
-				Double converteTemp;
+			JSONObject main = (JSONObject) json.get("main");
 
-				JSONObject weather = (JSONObject) jsons;
+			double converteTemp;
 
-				clima.setMainObject(weather.get("main").toString());
+			clima.setTempMax(main.get("temp_max").toString());
 
-				JSONObject mainObject = (JSONObject) weather.get("main");
+			converteTemp = Double.parseDouble(clima.getTempMax());
 
-				clima.setTempMax(mainObject.get("temp_max").toString());
-				
-				converteTemp = Double.parseDouble(clima.getTempMax());
-				
-				converteTemp -= 273.15;
-				
-				clima.setTempMax(converteTemp.toString());
+			converteTemp -= 273.15;
+			
+			converteTemp = formatacaoDecimal((String)converteTemp);
 
-			}
+			clima.setTempMax(converteTemp);
 
 		} catch (Exception e) {
 
@@ -204,6 +183,13 @@ public class TrataJsonCidadeUmDia {
 
 		return clima.getTempMax();
 
+	}
+
+	public static String formatacaoDecimal(double converteTemp) {
+		
+		DecimalFormat formatacao = new DecimalFormat("#0.00");
+		
+		return formatacao.format(converteTemp);
 	}
 
 }
