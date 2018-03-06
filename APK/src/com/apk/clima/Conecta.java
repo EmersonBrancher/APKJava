@@ -10,7 +10,9 @@ public class Conecta {
 
 	public static String Json(String recebeId) throws IOException {
 		
-		URL url = new URL("http://samples.openweathermap.org/data/2.5/weather?id=" + recebeId.toString() +"&appid=b6907d289e10d714a6e88b30761fae22");
+		String chegaId = recebeId.toString();
+		
+		URL url = new URL("http://api.openweathermap.org/data/2.5/weather?id=" + chegaId +"&APPID=f86cef0eaafe77f1f08ed6ae589d2bd4");
 		
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 		

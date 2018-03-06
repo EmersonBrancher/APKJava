@@ -8,10 +8,9 @@ public class MainActivity {
 
 	public static void main(String[] args) {
 
-		String passaInformacaoCidade = "";
-
 		boolean primeiroLogin = true;
 		
+		String passaInformacaoCidade = "";
 		String temp;
 		String tempMin;
 		String tempMax;
@@ -24,22 +23,17 @@ public class MainActivity {
 
 				primeiroLogin = PrimeiroLogin.verificaPrimeiroLogin(primeiroLogin);
 				passaInformacaoCidade = PrimeiroLogin.primeiraCidade(passaInformacaoCidade);		
-				passaInformacaoCidade = LeituraJSON.leJsonCidade(passaInformacaoCidade);
+				passaInformacaoCidade = LeituraJSON.leJsonCidade(passaInformacaoCidade);		
+				passaInformacaoCidade = ConectaWeather.Json(passaInformacaoCidade);
 				
-				System.out.println(passaInformacaoCidade);
-				
-				passaInformacaoCidade = Conecta.Json(passaInformacaoCidade);
-				
-				System.out.println(passaInformacaoCidade);
-				
-				temp = TrataJsonCidadeUmDia.passaTemp(passaInformacaoCidade);
-		//		tempMin = TrataJsonCidadeUmDia.passaTempMin(passaInformacaoCidade);
-		//		tempMax = TrataJsonCidadeUmDia.passaTempMax(passaInformacaoCidade);
+				temp = TrataJsonWeather.passaTemp(passaInformacaoCidade);
+				tempMin = TrataJsonWeather.passaTempMin(passaInformacaoCidade);
+				tempMax = TrataJsonWeather.passaTempMax(passaInformacaoCidade);
 				
 				
-				System.out.println(temp + "ºC");
-			//	System.out.println(tempMin + "ºC");
-			//	System.out.println(tempMax + "ºC");
+				System.out.println("Temperatura atual: " + temp + "ºC");
+				System.out.println("Temperatura Minima: " + tempMin + "ºC");
+				System.out.println("Temperatura Máxima: " + tempMax + "ºC");
 				
 
 			} catch (IOException e) {
